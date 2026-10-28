@@ -1,77 +1,68 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Stap · Assinatura de e-mail</title><link rel="stylesheet" href="assets/css/hub.css">
-<style>
-.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:48px;align-items:start}
-@media(max-width:820px){.split{grid-template-columns:1fr}}
-form{display:grid;gap:16px}
-label{display:grid;gap:6px;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted)}
-input{font:15px var(--sans);padding:12px 14px;border:1px solid var(--rule);background:var(--tile);color:var(--ink);border-radius:0}
-input:focus{outline:2px solid var(--accent);outline-offset:-1px}
-.preview{background:#fff;padding:40px;border:1px solid var(--rule);overflow-x:auto}
-#msg{font-size:13px;color:var(--muted);min-height:1.4em}
-ol{color:var(--muted);padding-left:18px;font-size:14px}
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Stap · Assinatura</title><link rel="stylesheet" href="assets/css/hub.css"><style>
+.two{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:56px}
+@media(max-width:900px){.two{grid-template-columns:1fr}}
+.fld{display:grid;grid-template-columns:110px minmax(0,1fr);gap:12px;align-items:center;border-bottom:1px solid var(--hair)}
+.fld .lbl{color:var(--muted);font-size:10px}
+.fld input{font:400 22px var(--serif);border:0;background:transparent;padding:16px 0;color:var(--navy);min-width:0}.fld input:focus{outline:none}.fld:focus-within{border-color:var(--blue)}
+#msg{font-size:13px;color:var(--blue);min-height:1.4em;margin-top:12px}
+.stage{background:var(--g-luz);padding:clamp(20px,4vw,56px);display:flex;align-items:center;justify-content:center;min-height:520px;overflow-x:auto}
+.mail{background:#fff;width:100%;max-width:680px;box-shadow:0 40px 80px -30px rgba(7,17,31,.3)}
+.mail .hd{display:flex;gap:6px;padding:12px 16px;border-bottom:1px solid #EAE6DE}.mail .hd i{width:9px;height:9px;border-radius:50%;background:#E3DED4}
+.mail .bd{padding:28px 28px 36px;font:14px Arial,sans-serif;color:#3A4656;overflow-x:auto}.mail .bd p{margin:0 0 22px}
 </style></head>
 <body>
-<header class="top"><div class="wrap">
-  <a href="index.html"><img src="assets/logos/stap-feelings-horizontal-navy.png" alt="Stap Feelings"></a>
-  <nav><a href="index.html">Hub</a><a href="templates.html">Templates</a><a href="assinatura.html" aria-current="page">Assinatura</a></nav>
+<header class="bar"><div class="in wrap">
+  <a class="brand" href="index.html"><img src="assets/logos/stap-feelings-horizontal-navy.png" alt="Stap Feelings"><span>Hub</span></a>
+  <nav><a href="templates.html"><sup>01</sup>Template</a><a href="fontes.html"><sup>02</sup>Fontes</a><a href="logos.html"><sup>03</sup>Logos</a><a href="fichas.html"><sup>04</sup>Fichas</a><a href="papelaria.html"><sup>05</sup>Papelaria</a><a href="assinatura.html" aria-current="page"><sup>06</sup>Assinatura</a><a href="teams.html"><sup>07</sup>BG Teams</a><a href="documentos.html"><sup>08</sup>Documentos</a></nav>
 </div></header>
-<main class="wrap">
-  <section>
-    <div class="lbl">02 · Assinatura de e-mail</div>
-    <h1>Sua <em>assinatura.</em></h1>
-    <p class="lead">Preencha seus dados, copie e cole nas configurações do seu e-mail. A assinatura usa fontes seguras para e-mail, então aparece igual para quem recebe.</p>
-  </section>
-  <section class="split">
-    <form id="f" autocomplete="on">
-      <label>Nome<input id="nome" value="Kco Oyakawa"></label>
-      <label>Cargo<input id="cargo" value="Diretor de Arte"></label>
-      <label>E-mail<input id="email" type="email" value="nome@stap.com.br"></label>
-      <label>Celular (opcional)<input id="cel" placeholder="+55 11 90000-0000"></label>
-      <label>Telefone<input id="tel" value="+55 11 5908-0404"></label>
-      <div class="row" style="margin-top:8px">
-        <button class="btn" type="button" id="copy">Copiar assinatura</button>
-        <button class="btn ghost" type="button" id="copyhtml">Copiar HTML</button>
-      </div>
-      <div id="msg" aria-live="polite"></div>
-      <div>
-        <div class="lbl" style="margin-bottom:8px">Como instalar</div>
-        <ol>
-          <li><b>Gmail:</b> Configurações › Ver todas › Geral › Assinatura › Criar nova › colar.</li>
-          <li><b>Outlook:</b> Configurações › Contas › Assinaturas › Nova › colar.</li>
-          <li><b>Apple Mail:</b> Ajustes › Assinaturas › + › colar (desmarque "Usar a fonte padrão").</li>
-        </ol>
-      </div>
-    </form>
-    <div><div class="lbl" style="margin-bottom:12px">Prévia</div><div class="preview" id="out"></div></div>
-  </section>
-</main>
-<footer class="wrap">Stap · Sentimentos se constroem.</footer>
+<section class="phead wrap"><div class="k lbl"><i>06</i><span>Assinatura</span></div><h1>Assinatura <em>de e&#8209;mail.</em></h1><p class="lead">Preencha, copie e cole nas configurações do seu e-mail. Usa fontes seguras para e-mail, então chega igual para quem recebe.</p></section><section class="section wrap two">
+<div><form id="f" autocomplete="on" style="border-top:1px solid var(--navy)">
+<label class="fld"><span class="lbl">Nome</span><input id="nome" value="Kco Oyakawa"></label>
+<label class="fld"><span class="lbl">Cargo</span><input id="cargo" value="Head of Art"></label>
+<label class="fld"><span class="lbl">E-mail</span><input id="email" type="email" value="kco@stap.com.br"></label>
+<label class="fld"><span class="lbl">Celular</span><input id="cel" value="+55 11 99577 7475"></label>
+<label class="fld"><span class="lbl">Telefone</span><input id="tel" value="+55 11 5908 0404"></label></form>
+<div class="acts"><button class="btn" type="button" id="copy">Copiar assinatura</button><button class="btn ghost" type="button" id="copyhtml">Copiar HTML</button></div><div id="msg" aria-live="polite"></div>
+<div class="notes" style="margin-top:40px"><div><span class="n">Gmail</span><h4>Configurações</h4><p>Ver todas › Geral › Assinatura › Criar nova › colar.</p></div><div><span class="n">Outlook</span><h4>Configurações</h4><p>Contas › Assinaturas › Nova › colar.</p></div></div></div>
+<div class="stage"><div class="mail"><div class="hd"><i></i><i></i><i></i></div><div class="bd"><p>Olá, tudo bem?<br><br>Segue em anexo a proposta. Qualquer dúvida, estou à disposição.</p><div id="out"></div></div></div></div>
+</section>
+<footer class="foot wrap"><b>stapfeelings</b><span>Uso interno · 2026</span></footer>
 <script>
 const $=id=>document.getElementById(id);
 const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const logo=new URL("assets/logos/assinatura-email.png",location.href).href;
+const U=p=>new URL(p,location.href).href;
+const SOCIAL=[["instagram","https://www.instagram.com/stapfeelings"],["linkedin","https://www.linkedin.com/company/stapfeelings"],["facebook","https://www.facebook.com/stapfeelings"]];
 function sig(){
   const v=k=>esc($(k).value.trim());
-  const fones=[v("cel"),v("tel")].filter(Boolean).join(" &nbsp;·&nbsp; ");
-  return `<table cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif;color:#07111F;border-collapse:collapse">
-<tr><td style="padding:0 0 4px 0;font-family:Georgia,'Times New Roman',serif;font-size:22px;line-height:1.1;color:#07111F">${v("nome")}</td></tr>
-<tr><td style="padding:0 0 14px 0;font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:15px;color:#1F4FA8">${v("cargo")}</td></tr>
-<tr><td style="padding:0 0 14px 0;border-top:1px solid #07111F;font-size:0;line-height:0">&nbsp;</td></tr>
-<tr><td style="padding:0 0 3px 0;font-size:12px;color:#3A4656"><a href="mailto:${v("email")}" style="color:#3A4656;text-decoration:none">${v("email")}</a></td></tr>
-${fones?`<tr><td style="padding:0 0 3px 0;font-size:12px;color:#3A4656">${fones}</td></tr>`:""}
-<tr><td style="padding:0 0 16px 0;font-size:12px;color:#3A4656">Rua Prestes João, 140 · São Paulo</td></tr>
-<tr><td style="padding:0 0 6px 0"><img src="${logo}" alt="Stap Feelings" width="120" style="display:block;width:120px;height:auto;border:0"></td></tr>
-<tr><td style="font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:13px;color:#1F4FA8">Sentimentos se constroem.</td></tr>
+  const line=(l,x)=>x?`<tr><td style="padding:0 0 2px 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:18px;color:#3A4656"><span style="color:#8A94A2">${l}</span>&nbsp;&nbsp;${x}</td></tr>`:"";
+  const icons=SOCIAL.map(([k,u])=>`<a href="${u}" style="text-decoration:none;display:inline-block;margin-right:14px"><img src="${U("assets/logos/ic-"+k+".png")}" width="16" height="16" alt="${k}" style="display:inline-block;border:0;width:16px;height:16px"></a>`).join("");
+  return `<table cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif">
+<tr><td style="padding:0 0 0 32px">
+<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse">
+<tr><td style="font-family:Georgia,'Times New Roman',serif;font-size:30px;line-height:34px;color:#07111F;padding:0 0 2px 0">${v("nome")}</td></tr>
+<tr><td style="font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:17px;line-height:22px;color:#1F4FA8;padding:0 0 12px 0">${v("cargo")}</td></tr>
+${line("e-mail",`<a href="mailto:${v("email")}" style="color:#3A4656;text-decoration:none">${v("email")}</a>`)}
+${line("celular",v("cel"))}
+${line("telefone",v("tel"))}
+</table></td></tr>
+<tr><td style="padding:18px 0 0 0">
+<table cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px;border-collapse:collapse"><tr>
+<td bgcolor="#DCCFBC" background="${U("assets/logos/assinatura-faixa.png")}" style="background:#DCCFBC url('${U("assets/logos/assinatura-faixa.png")}') no-repeat center/cover;padding:18px 32px">
+<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse"><tr>
+<td valign="middle" width="150"><img src="${U("assets/logos/stap-feelings-horizontal-navy.png")}" width="130" alt="Stap Feelings" style="display:block;width:130px;height:auto;border:0"></td>
+<td valign="middle" style="padding-left:16px;white-space:nowrap">${icons}</td>
+<td valign="middle" align="right" style="font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:19px;color:#07111F;white-space:nowrap">Sentimentos se constroem.</td>
+</tr></table></td></tr></table></td></tr>
+<tr><td style="padding:12px 0 0 32px;font-family:Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:.5px;color:#8A94A2">Rua Prestes João, 140 · Jardim Luzitânia · São Paulo/SP · CEP 04032-010</td></tr>
 </table>`;}
 function render(){$("out").innerHTML=sig()}
 $("f").addEventListener("input",render);render();
 const say=t=>{$("msg").textContent=t};
 $("copy").onclick=async()=>{const html=sig();
   try{await navigator.clipboard.write([new ClipboardItem({"text/html":new Blob([html],{type:"text/html"}),"text/plain":new Blob([$("out").innerText],{type:"text/plain"})})]);say("Assinatura copiada. Cole nas configurações do seu e-mail.")}
-  catch(e){const r=document.createRange();r.selectNodeContents($("out"));const s=getSelection();s.removeAllRanges();s.addRange(r);
-    say(document.execCommand("copy")?"Assinatura copiada.":"Selecionei a assinatura: use Ctrl/Cmd+C para copiar.")}};
+  catch(e){const r=document.createRange();r.selectNodeContents($("out"));const s=getSelection();s.removeAllRanges();s.addRange(r);say(document.execCommand("copy")?"Assinatura copiada.":"Selecionei a assinatura: use Ctrl/Cmd+C para copiar.")}};
 $("copyhtml").onclick=async()=>{try{await navigator.clipboard.writeText(sig());say("HTML copiado.")}catch(e){say("Não foi possível copiar o HTML neste navegador.")}};
 </script>
 </body></html>

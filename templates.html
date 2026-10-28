@@ -1,55 +1,30 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Stap · Templates</title><link rel="stylesheet" href="assets/css/hub.css"></head>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Stap · Template</title><link rel="stylesheet" href="assets/css/hub.css"></head>
 <body>
-<header class="top"><div class="wrap">
-  <a href="index.html"><img src="assets/logos/stap-feelings-horizontal-navy.png" alt="Stap Feelings"></a>
-  <nav><a href="index.html">Hub</a><a href="templates.html" aria-current="page">Templates</a><a href="assinatura.html">Assinatura</a></nav>
+<header class="bar"><div class="in wrap">
+  <a class="brand" href="index.html"><img src="assets/logos/stap-feelings-horizontal-navy.png" alt="Stap Feelings"><span>Hub</span></a>
+  <nav><a href="templates.html" aria-current="page"><sup>01</sup>Template</a><a href="fontes.html"><sup>02</sup>Fontes</a><a href="logos.html"><sup>03</sup>Logos</a><a href="fichas.html"><sup>04</sup>Fichas</a><a href="papelaria.html"><sup>05</sup>Papelaria</a><a href="assinatura.html"><sup>06</sup>Assinatura</a><a href="teams.html"><sup>07</sup>BG Teams</a><a href="documentos.html"><sup>08</sup>Documentos</a></nav>
 </div></header>
-<main class="wrap">
-  <section>
-    <div class="lbl">01 · Apresentações</div>
-    <h1>Template de <em>apresentação.</em></h1>
-    <p class="lead">26 slides prontos com a nova identidade: capas, subcapas, statements, slides com e sem imagem e gráficos editáveis. Instale as fontes antes de abrir o arquivo.</p>
-    <div class="row" style="margin-top:28px">
-      <a class="btn" href="assets/templates/Stap_Template_Apresentacao_2026.pptx" download>Baixar template (.pptx)</a>
-      <a class="btn ghost" href="assets/Stap_Fontes_2026.zip" download>Baixar fontes (.zip)</a>
-      <a class="btn ghost" href="assets/Stap_Logos_2026.zip" download>Baixar logos (.zip)</a>
-    </div>
-  </section>
-  <section><div id="secs"></div></section>
-  <section>
-    <div class="lbl">Logo Stap Feelings</div>
-    <h2>Logos</h2>
-    <div class="logos">
-      <div class="logo light"><img src="assets/logos/stap-feelings-vertical-navy.png" alt="Stap Feelings navy"><a class="btn" href="assets/logos/stap-feelings-vertical-navy.png" download>PNG para fundo claro</a></div>
-      <div class="logo dark"><img src="assets/logos/stap-feelings-vertical-offwhite.png" alt="Stap Feelings off-white"><a class="btn" href="assets/logos/stap-feelings-vertical-offwhite.png" download>PNG para fundo escuro</a></div>
-      <div class="logo light"><img src="assets/logos/stap-feelings-horizontal-navy.png" alt="Stap Feelings horizontal navy" style="height:40px"><a class="btn" href="assets/logos/stap-feelings-horizontal-navy.png" download>Horizontal · claro</a></div>
-      <div class="logo dark"><img src="assets/logos/stap-feelings-horizontal-offwhite.png" alt="Stap Feelings horizontal off-white" style="height:40px"><a class="btn" href="assets/logos/stap-feelings-horizontal-offwhite.png" download>Horizontal · escuro</a></div>
-    </div>
-    <p class="note" style="margin-top:20px">Use o logo só nas duas cores originais (navy ou off-white), sem degradê, sem recolorir e sem distorcer.</p>
-  </section>
-  <section>
-    <div class="lbl">Como usar</div>
-    <div class="cards" style="margin-top:20px">
-      <div class="card"><h3>Fontes</h3><p>Instale Instrument Serif (regular e itálico), Tusker Grotesk 3500 e PP Right Grotesk Text antes de abrir o template.</p></div>
-      <div class="card"><h3>Layouts</h3><p>No PowerPoint, Página Inicial › Layout. Para capas com foto, duplique o slide de exemplo para manter o véu que garante a leitura.</p></div>
-      <div class="card"><h3>Imagens</h3><p>Clique com o botão direito › Alterar imagem. Nunca estique fotos nem logos de cliente.</p></div>
-      <div class="card"><h3>Gráficos</h3><p>Clique no gráfico › Editar dados. No máximo três cores da paleta por gráfico.</p></div>
-    </div>
-  </section>
-</main>
-<footer class="wrap">Stap · Sentimentos se constroem.</footer>
-<script>
-const S=[["Capas",["Capa · imagem","Capa · degradê","Capa · clara","Capa · editorial clara","Capa · editorial azul"]],
-["Subcapas e statements",["Subcapa · degradê","Subcapa · entardecer","Subcapa · clara editorial","Subcapa · imagem","Statement · degradê","Statement · impacto"]],
-["Conteúdo",["Título + texto","Duas colunas","Números","Etapas","Citação"]],
-["Com imagem",["Case · texto + imagem","Imagem cheia","Duas imagens","Três imagens","Render × Real · Ford","Render × Real · Grunner"]],
-["Gráficos e encerramento",["Barras com destaque","Comparativo","Rosca + linha","Encerramento"]]];
-let n=1;const root=document.getElementById("secs");
-for(const[t,items]of S){const d=document.createElement("div");d.style.marginBottom="48px";
-d.innerHTML=`<div class="lbl">${items.length} slides</div><h2>${t}</h2><div class="grid"></div>`;
-const g=d.querySelector(".grid");for(const c of items){const i=String(n++).padStart(2,"0");
-g.insertAdjacentHTML("beforeend",`<figure><img src="assets/slides/s-${i}.jpg" alt="${c}" loading="lazy"><figcaption>${i} · ${c}</figcaption></figure>`)}root.append(d)}
+<section class="phead wrap"><div class="k lbl"><i>01</i><span>Template</span></div><h1>Template de <em>apresentação.</em></h1><p class="lead">26 slides com a nova identidade: capas, subcapas, statements, slides com e sem imagem, Render × Real e gráficos editáveis. Instale as fontes antes de abrir.</p><div class="acts"><a class="btn" href="assets/templates/Stap_Template_Apresentacao_2026.pptx" download>Baixar template .pptx · 7,7 MB ↓</a><a class="btn ghost" href="fontes.html">Fontes</a><a class="btn ghost" href="logos.html">Logos</a></div></section><section class="section wrap"><div class="shead"><h2>Os slides</h2><p>Clique para ver em tela cheia. Use as setas do teclado para navegar.</p></div><div id="secs"></div></section>
+<section class="section wrap"><div class="shead"><h2>Como usar</h2></div><div class="notes">
+<div><span class="n">01</span><h4>Instale as fontes</h4><p>Antes de abrir o .pptx. Sem elas o PowerPoint troca por uma substituta.</p></div>
+<div><span class="n">02</span><h4>Escolha o layout</h4><p>Página Inicial › Layout. Para capas com foto, duplique o slide de exemplo e mantenha o véu.</p></div>
+<div><span class="n">03</span><h4>Troque imagens</h4><p>Botão direito › Alterar imagem. Nunca estique foto nem logo de cliente.</p></div>
+<div><span class="n">04</span><h4>Gráficos</h4><p>Clique no gráfico › Editar dados. No máximo três cores da paleta.</p></div></div></section>
+<div class="box" id="box" hidden role="dialog" aria-label="Slide em tela cheia"><div class="ctl"><button id="bp" aria-label="Anterior">←</button><button id="bn" aria-label="Próximo">→</button><button id="bx" aria-label="Fechar">×</button></div>
+<div style="max-width:1400px;width:100%"><img id="bi" alt=""><div class="cap lbl"><span id="bc"></span><span id="bk"></span></div></div></div>
+<footer class="foot wrap"><b>stapfeelings</b><span>Uso interno · 2026</span></footer>
+<script>const S=[["Capas", ["Capa · imagem", "Capa · degradê", "Capa · clara", "Capa · editorial clara", "Capa · editorial azul"]], ["Subcapas e statements", ["Subcapa · degradê", "Subcapa · entardecer", "Subcapa · clara editorial", "Subcapa · imagem", "Statement · degradê", "Statement · impacto"]], ["Conteúdo", ["Título + texto", "Duas colunas", "Números", "Etapas", "Citação"]], ["Com imagem", ["Case · texto + imagem", "Imagem cheia", "Duas imagens", "Três imagens", "Render × Real · Ford", "Render × Real · Grunner"]], ["Gráficos e encerramento", ["Barras com destaque", "Comparativo", "Rosca + linha", "Encerramento"]]];
+const all=[];let n=1;const root=document.getElementById("secs");
+S.forEach(([t,items])=>{const d=document.createElement("div");d.className="group";d.innerHTML=`<h3>${t}</h3><div class="slides"></div>`;const g=d.querySelector(".slides");
+items.forEach(c=>{const i=String(n++).padStart(2,"0");const idx=all.length;all.push([i,c]);const f=document.createElement("figure");f.tabIndex=0;
+f.innerHTML=`<img src="assets/slides/s-${i}.jpg" alt="${c}" loading="lazy"><figcaption><b>${i}</b>${c}</figcaption>`;f.onclick=()=>open(idx);f.onkeydown=e=>{if(e.key==="Enter")open(idx)};g.append(f)});root.append(d)});
+const box=document.getElementById("box");let cur=0;
+function show(){const[i,c]=all[cur];document.getElementById("bi").src=`assets/slides/s-${i}.jpg`;document.getElementById("bc").textContent=c;document.getElementById("bk").textContent=`${i} / ${all.length}`}
+function open(i){cur=i;show();box.hidden=false}
+bx.onclick=()=>box.hidden=true;bn.onclick=()=>{cur=(cur+1)%all.length;show()};bp.onclick=()=>{cur=(cur-1+all.length)%all.length;show()};
+box.onclick=e=>{if(e.target===box)box.hidden=true};
+addEventListener("keydown",e=>{if(box.hidden)return;if(e.key==="Escape")box.hidden=true;if(e.key==="ArrowRight")bn.click();if(e.key==="ArrowLeft")bp.click()});
 </script>
 </body></html>
