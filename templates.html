@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stap · Templates</title><link rel="stylesheet" href="assets/css/hub.css"></head>
+<body>
+<header class="top"><div class="wrap">
+  <a href="index.html"><img src="assets/logos/stap-feelings-horizontal-navy.png" alt="Stap Feelings"></a>
+  <nav><a href="index.html">Hub</a><a href="templates.html" aria-current="page">Templates</a><a href="assinatura.html">Assinatura</a></nav>
+</div></header>
+<main class="wrap">
+  <section>
+    <div class="lbl">01 · Apresentações</div>
+    <h1>Template de <em>apresentação.</em></h1>
+    <p class="lead">26 slides prontos com a nova identidade: capas, subcapas, statements, slides com e sem imagem e gráficos editáveis. Instale as fontes antes de abrir o arquivo.</p>
+    <div class="row" style="margin-top:28px">
+      <a class="btn" href="assets/templates/Stap_Template_Apresentacao_2026.pptx" download>Baixar template (.pptx)</a>
+      <a class="btn ghost" href="assets/Stap_Fontes_2026.zip" download>Baixar fontes (.zip)</a>
+      <a class="btn ghost" href="assets/Stap_Logos_2026.zip" download>Baixar logos (.zip)</a>
+    </div>
+  </section>
+  <section><div id="secs"></div></section>
+  <section>
+    <div class="lbl">Logo Stap Feelings</div>
+    <h2>Logos</h2>
+    <div class="logos">
+      <div class="logo light"><img src="assets/logos/stap-feelings-vertical-navy.png" alt="Stap Feelings navy"><a class="btn" href="assets/logos/stap-feelings-vertical-navy.png" download>PNG para fundo claro</a></div>
+      <div class="logo dark"><img src="assets/logos/stap-feelings-vertical-offwhite.png" alt="Stap Feelings off-white"><a class="btn" href="assets/logos/stap-feelings-vertical-offwhite.png" download>PNG para fundo escuro</a></div>
+      <div class="logo light"><img src="assets/logos/stap-feelings-horizontal-navy.png" alt="Stap Feelings horizontal navy" style="height:40px"><a class="btn" href="assets/logos/stap-feelings-horizontal-navy.png" download>Horizontal · claro</a></div>
+      <div class="logo dark"><img src="assets/logos/stap-feelings-horizontal-offwhite.png" alt="Stap Feelings horizontal off-white" style="height:40px"><a class="btn" href="assets/logos/stap-feelings-horizontal-offwhite.png" download>Horizontal · escuro</a></div>
+    </div>
+    <p class="note" style="margin-top:20px">Use o logo só nas duas cores originais (navy ou off-white), sem degradê, sem recolorir e sem distorcer.</p>
+  </section>
+  <section>
+    <div class="lbl">Como usar</div>
+    <div class="cards" style="margin-top:20px">
+      <div class="card"><h3>Fontes</h3><p>Instale Instrument Serif (regular e itálico), Tusker Grotesk 3500 e PP Right Grotesk Text antes de abrir o template.</p></div>
+      <div class="card"><h3>Layouts</h3><p>No PowerPoint, Página Inicial › Layout. Para capas com foto, duplique o slide de exemplo para manter o véu que garante a leitura.</p></div>
+      <div class="card"><h3>Imagens</h3><p>Clique com o botão direito › Alterar imagem. Nunca estique fotos nem logos de cliente.</p></div>
+      <div class="card"><h3>Gráficos</h3><p>Clique no gráfico › Editar dados. No máximo três cores da paleta por gráfico.</p></div>
+    </div>
+  </section>
+</main>
+<footer class="wrap">Stap · Sentimentos se constroem.</footer>
+<script>
+const S=[["Capas",["Capa · imagem","Capa · degradê","Capa · clara","Capa · editorial clara","Capa · editorial azul"]],
+["Subcapas e statements",["Subcapa · degradê","Subcapa · entardecer","Subcapa · clara editorial","Subcapa · imagem","Statement · degradê","Statement · impacto"]],
+["Conteúdo",["Título + texto","Duas colunas","Números","Etapas","Citação"]],
+["Com imagem",["Case · texto + imagem","Imagem cheia","Duas imagens","Três imagens","Render × Real · Ford","Render × Real · Grunner"]],
+["Gráficos e encerramento",["Barras com destaque","Comparativo","Rosca + linha","Encerramento"]]];
+let n=1;const root=document.getElementById("secs");
+for(const[t,items]of S){const d=document.createElement("div");d.style.marginBottom="48px";
+d.innerHTML=`<div class="lbl">${items.length} slides</div><h2>${t}</h2><div class="grid"></div>`;
+const g=d.querySelector(".grid");for(const c of items){const i=String(n++).padStart(2,"0");
+g.insertAdjacentHTML("beforeend",`<figure><img src="assets/slides/s-${i}.jpg" alt="${c}" loading="lazy"><figcaption>${i} · ${c}</figcaption></figure>`)}root.append(d)}
+</script>
+</body></html>

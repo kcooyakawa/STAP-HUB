@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stap · Assinatura de e-mail</title><link rel="stylesheet" href="assets/css/hub.css">
+<style>
+.split{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:48px;align-items:start}
+@media(max-width:820px){.split{grid-template-columns:1fr}}
+form{display:grid;gap:16px}
+label{display:grid;gap:6px;font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted)}
+input{font:15px var(--sans);padding:12px 14px;border:1px solid var(--rule);background:var(--tile);color:var(--ink);border-radius:0}
+input:focus{outline:2px solid var(--accent);outline-offset:-1px}
+.preview{background:#fff;padding:40px;border:1px solid var(--rule);overflow-x:auto}
+#msg{font-size:13px;color:var(--muted);min-height:1.4em}
+ol{color:var(--muted);padding-left:18px;font-size:14px}
+</style></head>
+<body>
+<header class="top"><div class="wrap">
+  <a href="index.html"><img src="assets/logos/stap-feelings-horizontal-navy.png" alt="Stap Feelings"></a>
+  <nav><a href="index.html">Hub</a><a href="templates.html">Templates</a><a href="assinatura.html" aria-current="page">Assinatura</a></nav>
+</div></header>
+<main class="wrap">
+  <section>
+    <div class="lbl">02 · Assinatura de e-mail</div>
+    <h1>Sua <em>assinatura.</em></h1>
+    <p class="lead">Preencha seus dados, copie e cole nas configurações do seu e-mail. A assinatura usa fontes seguras para e-mail, então aparece igual para quem recebe.</p>
+  </section>
+  <section class="split">
+    <form id="f" autocomplete="on">
+      <label>Nome<input id="nome" value="Kco Oyakawa"></label>
+      <label>Cargo<input id="cargo" value="Diretor de Arte"></label>
+      <label>E-mail<input id="email" type="email" value="nome@stap.com.br"></label>
+      <label>Celular (opcional)<input id="cel" placeholder="+55 11 90000-0000"></label>
+      <label>Telefone<input id="tel" value="+55 11 5908-0404"></label>
+      <div class="row" style="margin-top:8px">
+        <button class="btn" type="button" id="copy">Copiar assinatura</button>
+        <button class="btn ghost" type="button" id="copyhtml">Copiar HTML</button>
+      </div>
+      <div id="msg" aria-live="polite"></div>
+      <div>
+        <div class="lbl" style="margin-bottom:8px">Como instalar</div>
+        <ol>
+          <li><b>Gmail:</b> Configurações › Ver todas › Geral › Assinatura › Criar nova › colar.</li>
+          <li><b>Outlook:</b> Configurações › Contas › Assinaturas › Nova › colar.</li>
+          <li><b>Apple Mail:</b> Ajustes › Assinaturas › + › colar (desmarque "Usar a fonte padrão").</li>
+        </ol>
+      </div>
+    </form>
+    <div><div class="lbl" style="margin-bottom:12px">Prévia</div><div class="preview" id="out"></div></div>
+  </section>
+</main>
+<footer class="wrap">Stap · Sentimentos se constroem.</footer>
+<script>
+const $=id=>document.getElementById(id);
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const logo=new URL("assets/logos/assinatura-email.png",location.href).href;
+function sig(){
+  const v=k=>esc($(k).value.trim());
+  const fones=[v("cel"),v("tel")].filter(Boolean).join(" &nbsp;·&nbsp; ");
+  return `<table cellpadding="0" cellspacing="0" border="0" style="font-family:Arial,Helvetica,sans-serif;color:#07111F;border-collapse:collapse">
+<tr><td style="padding:0 0 4px 0;font-family:Georgia,'Times New Roman',serif;font-size:22px;line-height:1.1;color:#07111F">${v("nome")}</td></tr>
+<tr><td style="padding:0 0 14px 0;font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:15px;color:#1F4FA8">${v("cargo")}</td></tr>
+<tr><td style="padding:0 0 14px 0;border-top:1px solid #07111F;font-size:0;line-height:0">&nbsp;</td></tr>
+<tr><td style="padding:0 0 3px 0;font-size:12px;color:#3A4656"><a href="mailto:${v("email")}" style="color:#3A4656;text-decoration:none">${v("email")}</a></td></tr>
+${fones?`<tr><td style="padding:0 0 3px 0;font-size:12px;color:#3A4656">${fones}</td></tr>`:""}
+<tr><td style="padding:0 0 16px 0;font-size:12px;color:#3A4656">Rua Prestes João, 140 · São Paulo</td></tr>
+<tr><td style="padding:0 0 6px 0"><img src="${logo}" alt="Stap Feelings" width="120" style="display:block;width:120px;height:auto;border:0"></td></tr>
+<tr><td style="font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:13px;color:#1F4FA8">Sentimentos se constroem.</td></tr>
+</table>`;}
+function render(){$("out").innerHTML=sig()}
+$("f").addEventListener("input",render);render();
+const say=t=>{$("msg").textContent=t};
+$("copy").onclick=async()=>{const html=sig();
+  try{await navigator.clipboard.write([new ClipboardItem({"text/html":new Blob([html],{type:"text/html"}),"text/plain":new Blob([$("out").innerText],{type:"text/plain"})})]);say("Assinatura copiada. Cole nas configurações do seu e-mail.")}
+  catch(e){const r=document.createRange();r.selectNodeContents($("out"));const s=getSelection();s.removeAllRanges();s.addRange(r);
+    say(document.execCommand("copy")?"Assinatura copiada.":"Selecionei a assinatura: use Ctrl/Cmd+C para copiar.")}};
+$("copyhtml").onclick=async()=>{try{await navigator.clipboard.writeText(sig());say("HTML copiado.")}catch(e){say("Não foi possível copiar o HTML neste navegador.")}};
+</script>
+</body></html>
