@@ -60,7 +60,7 @@ function render(){const s=STEPS[S];
  $('#app').innerHTML=`<div class="job"><span>${ID?`Job <b>${esc(ID)}</b>`:'Novo job'}</span>${ID?'<button id="cp">Copiar link deste job</button>':''}</div><div class="lay"><ol class="steps">${STEPS.map((x,i)=>`<li><button data-i="${i}" class="${i===S?'on':''}" ${i===S?'aria-current="step"':''}><i>${i+1}</i>${x.n}</button></li>`).join('')}</ol>
  <div class="pane"><div class="who lbl">Etapa ${S+1} de ${STEPS.length}</div><h2>${s.t}</h2><p class="hint">${s.hint||''}</p><form id="fm" class="g" autocomplete="off">${s.f().map(field).join('')}</form>${s.files?`<div id="fs"></div>`:''}
  <div class="nav"><button class="btn ghost" id="bk" ${S?'':'hidden'}>Voltar</button><button class="btn" id="nx">${S<STEPS.length-1?'Salvar e continuar':'Salvar e concluir'}</button></div></div></div>`;
- $('#fm').oninput=e=>{DIRTY=true;if(e.target.name)D[e.target.name]=e.target.value};
+ $('#fm').oninput=e=>{DIRTY=true;if(e.target.name&&e.target.name!=='cidade')D[e.target.name]=e.target.type==='checkbox'?(e.target.checked?'Sim':''):e.target.value;dias()};
  document.querySelectorAll('.steps button').forEach(b=>b.onclick=()=>go(+b.dataset.i));
  $('#bk').onclick=()=>go(S-1);$('#nx').onclick=()=>S<STEPS.length-1?go(S+1):go(S,true);
  const cp=$('#cp');if(cp)cp.onclick=async()=>{const u=location.origin+location.pathname+'?job='+ID;try{await navigator.clipboard.writeText(u);msg('Link copiado.')}catch(e){msg(u)}};
