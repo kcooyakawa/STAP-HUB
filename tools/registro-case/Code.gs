@@ -112,7 +112,7 @@ function done(b) {
   const pdf=HtmlService.createHtmlOutput(html).getAs('application/pdf').setName(nome);
   const old=folder.getFilesByName(nome); while(old.hasNext()) old.next().setTrashed(true);
   folder.createFile(pdf);
-  MailApp.sendEmail(Session.getEffectiveUser().getEmail(),'Registro de cases: '+t,'Novo registro concluído. O PDF está em anexo.\n\nArquivos: '+folder.getUrl(),{attachments:[pdf]});
+  MailApp.sendEmail('kcodigital@gmail.com','Registro de cases: '+t,'Novo registro concluído. O PDF está em anexo.\n\nArquivos: '+folder.getUrl(),{attachments:[pdf]});
   return {};
 }
 function autorizarEmail() { Logger.log(MailApp.getRemainingDailyQuota()); }
