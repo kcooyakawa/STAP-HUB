@@ -12,7 +12,7 @@ function doPost(e) {
       const lock = LockService.getScriptLock(); lock.waitLock(20000);
       try { const err = checkCode(b); if (err) return out({ok:false, error:err}); } finally { lock.releaseLock(); }
     }
-    const fn = {ping:()=>({}), save, get, files, upload, done}[b.action];
+    const fn = {ping:()=>({}), save, get, files, upload, done, capa}[b.action];
     if (!fn) return out({ok:false, error:'Ação desconhecida.'});
     const res = fn(b);
     if (!master && b.action==='save' && !b.id) bindCode(b.code, res.id);
@@ -116,3 +116,19 @@ function done(b) {
   return {};
 }
 function autorizarEmail() { Logger.log(MailApp.getRemainingDailyQuota()); }
+
+/* Primeira foto do job (evento, depois ângulo do render) para a capa do PDF. */
+function capa(b) {
+  const {s,r}=jobRow(b.id), root=DriveApp.getFolderById(s.getRange(r,3).getValue()), tk={Authorization:'Bearer '+ScriptApp.getOAuthToken()};
+  for (const n of [CATS.evento,CATS.angulo]) {
+    const it=root.getFoldersByName(n); if(!it.hasNext()) continue;
+    const f=it.next().getFiles();
+    while(f.hasNext()) { const x=f.next(); if(!/^image\//.test(x.getMimeType())) continue;
+      const m=JSON.parse(UrlFetchApp.fetch('https://www.googleapis.com/drive/v3/files/'+x.getId()+'?fields=thumbnailLink',{headers:tk}).getContentText());
+      if(!m.thumbnailLink) continue;
+      const i=UrlFetchApp.fetch(m.thumbnailLink.replace(/=s\d+$/,'=s1600'),{headers:tk}).getBlob();
+      return {img:'data:image/jpeg;base64,'+Utilities.base64Encode(i.getBytes())};
+    }
+  }
+  return {img:''};
+}

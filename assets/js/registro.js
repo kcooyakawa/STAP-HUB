@@ -66,7 +66,7 @@ function render(){const s=STEPS[S];
  city();dias();if(s.files)files();scrollTo({top:$('#app').offsetTop-24})}
 function valid(){const miss=STEPS[0].f().filter(x=>x.req&&!D[x.k]);if(miss.length){msg('Preencha: '+miss.map(x=>x.l).join(', ')+'.');return false}return true}
 async function save(){if(!valid())return false;if(!DIRTY&&ID)return true;msg('Salvando...');try{const j=await api('save',{id:ID,data:D});ID=j.id;DIRTY=false;msg('Salvo.');return true}catch(e){msg('Não salvou: '+e.message+' Tente de novo.');return false}}
-async function go(i,done){if(S===0&&i===0&&!done)return;if(!await save()){S=0;render();valid();return}S=i;if(done){const blocos=STEPS.map(s=>({t:s.t,rows:s.f().filter(x=>x.k&&D[x.k]).map(x=>[x.l,x.date?br(D[x.k]):D[x.k]])}));try{let pdf='';msg('Gerando o PDF...');try{pdf=await gerarPDF(D,ID,STEPS)}catch(e){}await api('done',{id:ID,titulo:D.cliente+' · '+D.evento,blocos,pdf})}catch(e){}return resumo()}render()}
+async function go(i,done){if(S===0&&i===0&&!done)return;if(!await save()){S=0;render();valid();return}S=i;if(done){const blocos=STEPS.map(s=>({t:s.t,rows:s.f().filter(x=>x.k&&D[x.k]).map(x=>[x.l,x.date?br(D[x.k]):D[x.k]])}));try{let pdf='';msg('Gerando o PDF...');try{let capa='';try{capa=(await api('capa',{id:ID})).img||''}catch(e){}pdf=await gerarPDF(D,ID,STEPS,capa)}catch(e){}await api('done',{id:ID,titulo:D.cliente+' · '+D.evento,blocos,pdf})}catch(e){}return resumo()}render()}
 const br=d=>d.split('-').reverse().join('/');
 async function resumo(){let fl={};try{fl=(await api('files',{id:ID})).files||{}}catch(e){}
  const val=x=>x.date&&D[x.k]?br(D[x.k]):D[x.k];
