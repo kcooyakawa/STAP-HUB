@@ -9,7 +9,7 @@ async function gerarPDF(D,id,steps,capa){
  const tab=(s)=>{const l=s.f().filter(x=>x.k&&D[x.k]&&!skip.has(x.k));return l.length?`<div class="fi">${l.map(x=>`<div><span>${PX(x.l)}</span><b>${PX(x.ck?'Sim':fmt(D[x.k]))}</b></div>`).join('')}</div>`:''};
  const when=[dbr(D.data_ini),dbr(D.data_fim)].filter(Boolean).join(' a ');
  const blocks=[
-  `<header class="${capa?'ph':''}">${capa?`<div class="foto" style="background-image:url(${capa})"></div>`:''}<div class="k"><span>Registro de cases</span><span>${new Date().toLocaleDateString('pt-BR')}</span></div><h1>${PX(D.cliente)}</h1><h2>${PX(D.evento)}</h2><p class="m">${[D.tipo,D.hub!=='Nenhum'&&D.hub,D.cidade,D.local,when].filter(Boolean).map(PX).join('  ·  ')}</p></header>`,
+  `<header class="${capa?'hf':''}">${capa?`<div class="foto" style="background-image:url(${capa})"></div>`:''}<div class="k"><span>Registro de cases</span><span>${new Date().toLocaleDateString('pt-BR')}</span></div><h1>${PX(D.cliente)}</h1><h2>${PX(D.evento)}</h2><p class="m">${[D.tipo,D.hub!=='Nenhum'&&D.hub,D.cidade,D.local,when].filter(Boolean).map(PX).join('  ·  ')}</p></header>`,
   big.length?`<section class="big" style="grid-template-columns:repeat(${big.length},1fr)">${big.map(b=>`<div><b>${PX(fmt(D[b[0]]))}</b><span>${b[1]}</span></div>`).join('')}</section>`:'',
   D.precisava?`<section class="t"><h3>O que o cliente <em>precisava</em></h3><p>${PX(D.precisava)}</p></section>`:'',
   D.solucao?`<section class="t"><h3>O que a Stap <em>criou</em></h3><p>${PX(D.solucao)}</p></section>`:'',
