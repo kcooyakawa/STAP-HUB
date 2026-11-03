@@ -64,7 +64,7 @@ function render(){const s=STEPS[S];
  document.querySelectorAll('.steps button').forEach(b=>b.onclick=()=>go(+b.dataset.i));
  $('#bk').onclick=()=>go(S-1);$('#nx').onclick=()=>S<STEPS.length-1?go(S+1):go(S,true);
  const cp=$('#cp');if(cp)cp.onclick=async()=>{const u=location.origin+location.pathname+'?job='+ID;try{await navigator.clipboard.writeText(u);msg('Link copiado.')}catch(e){msg(u)}};
- city();dias();if(s.files)files();scrollTo({top:$('#app').offsetTop-90})}
+ city();dias();if(s.files)files();scrollTo({top:$('#app').offsetTop-24})}
 function valid(){const miss=STEPS[0].f().filter(x=>x.req&&!D[x.k]);if(miss.length){msg('Preencha: '+miss.map(x=>x.l).join(', ')+'.');return false}return true}
 async function save(){if(!valid())return false;if(!DIRTY&&ID)return true;msg('Salvando...');try{const j=await api('save',{id:ID,data:D});ID=j.id;DIRTY=false;msg('Salvo.');return true}catch(e){msg('Não salvou: '+e.message+' Tente de novo.');return false}}
 async function go(i,done){if(S===0&&i===0&&!done)return;if(!await save()){S=0;render();valid();return}S=i;if(done)return resumo();render()}
@@ -75,7 +75,7 @@ async function resumo(){let fl={};try{fl=(await api('files',{id:ID})).files||{}}
   const a=s.files?FILES().map(([k,t])=>`<div class="rr"><span>${esc(t)}</span><b>${(fl[k]||[]).length} arquivo(s)</b></div>`).join(''):'';
   return`<section class="rs"><div class="rh"><h3>${esc(s.t)}</h3><button data-i="${i}">Editar</button></div>${r+a||'<p class="hint">Sem respostas.</p>'}</section>`}).join('');
  $('#app').innerHTML=`<div class="pane"><div class="who lbl">${DEMO?'Teste concluído':'Registro concluído'}</div><h2>Tudo certo, <em style="color:var(--blue)">obrigado.</em></h2><p class="hint">${DEMO?'Modo de teste: nada foi salvo.':'Suas respostas foram salvas.'} Confira o resumo. Job: ${esc(ID)}</p>${sec}<div class="acts"><button class="btn" id="pr">Imprimir ou salvar em PDF</button><button class="btn ghost" id="nw">Novo job</button></div></div>`;
- document.querySelectorAll('.rs button').forEach(b=>b.onclick=()=>{S=+b.dataset.i;render()});$('#pr').onclick=()=>print();$('#nw').onclick=()=>{D={};ID='';S=0;render()};msg('');scrollTo({top:$('#app').offsetTop-90})}
+ document.querySelectorAll('.rs button').forEach(b=>b.onclick=()=>{S=+b.dataset.i;render()});$('#pr').onclick=()=>print();$('#nw').onclick=()=>{D={};ID='';S=0;render()};msg('');scrollTo({top:$('#app').offsetTop-24})}
 const size=b=>b>1e9?(b/1e9).toFixed(1)+' GB':(b/1e6).toFixed(1)+' MB';
 async function files(){const box=$('#fs');box.innerHTML=FILES().map(([k,t,h])=>`<div class="drop" data-k="${k}"><h3>${t}</h3><p>${h}</p><label class="zone"><input type="file" multiple>Arraste aqui ou clique para escolher</label><ul class="fl"></ul></div>`).join('');
  box.querySelectorAll('.drop').forEach(d=>{const z=$('.zone',d),inp=$('input',d),k=d.dataset.k;inp.onchange=()=>{[...inp.files].forEach(f=>up(f,k,d));inp.value=''};
