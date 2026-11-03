@@ -47,10 +47,19 @@ body{background:#fff}
 .form{min-height:calc(100svh - 80px);background:linear-gradient(165deg,#fff 0%,#fff 55%,#D3E2F2 100%)}
 .open{max-width:560px;margin:clamp(24px,8vh,96px) auto 0}.open .lbl{color:var(--blue);margin-bottom:20px}.open h1{font:400 clamp(44px,5vw,68px)/1 var(--serif);letter-spacing:-.025em;margin:0 0 28px}.open p{margin:0;color:var(--muted)}.open .st1{font:400 26px/1.2 var(--serif);color:var(--navy)}
 .open .big{margin:36px 0 0}.open .big input{font-size:44px}.open .f{margin-top:12px}.open .acts{margin-top:28px}
+
+.pdfhost{position:fixed;left:-2000px;top:0}.pg{width:794px;height:1123px;background:#fff;color:#07111F;padding:56px 56px 40px;box-sizing:border-box;display:flex;flex-direction:column;overflow:hidden}.pg main{flex:1;min-height:0}.pg footer{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #07111F;padding-top:12px;font:10px var(--sans);color:#4A5868}.pg footer img{height:15px;width:auto}
+.pg header{margin:-56px -56px 0;padding:44px 56px 40px;background:linear-gradient(165deg,#fff 0%,#EEF3F9 45%,#D3E2F2 75%,#8CBBE8 100%)}.pg .k{display:flex;justify-content:space-between;font:10px var(--sans);letter-spacing:.26em;text-transform:uppercase;margin-bottom:84px}.pg h1{font:400 108px/.95 var(--impact);text-transform:uppercase;margin:0}.pg header h2{font:italic 400 44px/1.1 var(--serif);color:#1F4FA8;margin:6px 0 20px}.pg .m{font:12px/1.5 var(--sans);margin:0;color:#07111F}
+.pg .big{display:grid;gap:0;margin:0 -56px;padding:30px 56px;background:#1F4FA8;color:#fff}.pg .big div{border-left:1px solid rgba(255,255,255,.5);padding-left:14px}.pg .big b{display:block;font:400 62px/1 var(--impact)}.pg .big span{font:11px var(--sans);display:block;margin-top:8px}
+.pg h3{font:400 30px/1.1 var(--serif);margin:0 0 12px}.pg h3 em{color:#1F4FA8}.pg .t{padding-top:32px}.pg .t p{font:14px/1.6 var(--sans);margin:0;white-space:pre-wrap}.pg .gr{padding-top:34px;break-inside:avoid}.pg .r{display:flex;justify-content:space-between;gap:24px;padding:8px 0;border-bottom:1px solid #D3CCC0;font:13px var(--sans)}.pg .r span{color:#4A5868}.pg .r b{font-weight:400}
+.pg .q{padding-top:36px}.pg .q p{font:italic 26px/1.25 var(--serif);color:#1F4FA8;margin:0}
 </style></head>
 <body>
 <div class="demo" id="demo" hidden>Modo de teste: formulário ainda não conectado ao Drive. Nada do que você preencher será salvo.</div>
 <section class="form wrap"><div id="app"></div><div id="msg" aria-live="polite"></div></section>
 <footer class="foot wrap"><span>Sentimentos se constroem.</span><span>Uso interno · 2026</span></footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="assets/js/registro-pdf.js"></script>
 <script src="assets/js/registro.js"></script>
 </body></html>
