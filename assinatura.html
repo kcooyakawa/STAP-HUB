@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Stap · Assinatura</title><link rel="stylesheet" href="assets/css/hub.css"><style>
-.two{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:56px}
+.two{display:grid;grid-template-columns:minmax(0,1fr);gap:56px}
 @media(max-width:900px){.two{grid-template-columns:1fr}}
 .fld{display:grid;grid-template-columns:110px minmax(0,1fr);gap:12px;align-items:center;border-bottom:1px solid var(--hair)}
 .fld .lbl{color:var(--muted);font-size:10px}
@@ -17,13 +17,13 @@
   <a class="brand" href="index.html"><img src="assets/logos/stap-feelings-horizontal-navy.png" alt="Stap Feelings"><span>Hub</span></a>
   <nav><a href="templates.html"><sup>01</sup>Template</a><a href="fontes.html"><sup>02</sup>Fontes</a><a href="logos.html"><sup>03</sup>Logos</a><a href="fichas.html"><sup>04</sup>Fichas</a><a href="papelaria.html"><sup>05</sup>Papelaria</a><a href="assinatura.html" aria-current="page"><sup>06</sup>Assinatura</a><a href="teams.html"><sup>07</sup>BG Teams</a><a href="documentos.html"><sup>08</sup>Documentos</a><a href="apresentacoes.html"><sup>09</sup>Apresentações</a></nav>
 </div></header>
-<section class="phead wrap"><div class="k lbl"><i>06</i><span>Assinatura</span></div><h1>Assinatura <em>de e&#8209;mail.</em></h1><p class="lead">Preencha, copie e cole nas configurações do seu e-mail. Usa fontes seguras para e-mail, então chega igual para quem recebe.</p></section><section class="section wrap two">
+<section class="phead wrap"><div class="k lbl"><i>06</i><span>Assinatura</span></div><h1>Assinatura <em>de e&#8209;mail.</em></h1><p class="lead">Preencha, copie e cole nas configurações do seu e-mail. Quem tem o nome em PNG recebe a Newsreader; os demais saem em Georgia até o PNG ser gerado (tools/gerar_nome.py).</p></section><section class="section wrap two">
 <div><form id="f" autocomplete="on" style="border-top:1px solid var(--navy)">
 <label class="fld"><span class="lbl">Nome</span><input id="nome" value="Kco Oyakawa"></label>
 <label class="fld"><span class="lbl">Cargo</span><input id="cargo" value="Head of Art"></label>
 <label class="fld"><span class="lbl">E-mail</span><input id="email" type="email" value="kco@stap.com.br"></label>
 <label class="fld"><span class="lbl">Celular</span><input id="cel" value="+55 11 99577 7475"></label>
-<label class="fld"><span class="lbl">Telefone</span><input id="tel" value="+55 11 5908 0404"></label></form>
+</form>
 <div class="acts"><button class="btn" type="button" id="copy">Copiar assinatura</button><button class="btn ghost" type="button" id="copyhtml">Copiar HTML</button></div><div id="msg" aria-live="polite"></div>
 <div class="notes" style="margin-top:40px"><div><span class="n">Gmail</span><h4>Configurações</h4><p>Ver todas › Geral › Assinatura › Criar nova › colar.</p></div><div><span class="n">Outlook</span><h4>Configurações</h4><p>Contas › Assinaturas › Nova › colar.</p></div></div></div>
 <div class="stage"><div class="mail"><div class="hd"><i></i><i></i><i></i></div><div class="bd"><p>Olá, tudo bem?<br><br>Segue em anexo a proposta. Qualquer dúvida, estou à disposição.</p><div id="out"></div></div></div></div>
@@ -33,32 +33,21 @@
 const $=id=>document.getElementById(id);
 const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const U=p=>new URL(p,location.href).href;
-const SOCIAL=[["instagram","https://www.instagram.com/stapfeelings"],["linkedin","https://www.linkedin.com/company/stapfeelings"],["facebook","https://www.facebook.com/stapfeelings"]];
+const slug=t=>t.normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase().trim().split(/\s+/)[0]||"";
+let nomePng=null,nomeW=0;
 function sig(){
   const v=k=>esc($(k).value.trim());
-  const line=(l,x)=>x?`<tr><td style="padding:0 0 2px 0;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:18px;color:#3A4656"><span style="color:#8A94A2">${l}</span>&nbsp;&nbsp;${x}</td></tr>`:"";
-  const icons=SOCIAL.map(([k,u])=>`<a href="${u}" style="text-decoration:none;display:inline-block;margin-right:14px"><img src="${U("assets/logos/ic-"+k+".png")}" width="16" height="16" alt="${k}" style="display:inline-block;border:0;width:16px;height:16px"></a>`).join("");
-  return `<table cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px;border-collapse:collapse;font-family:Arial,Helvetica,sans-serif">
-<tr><td style="padding:0 0 0 32px">
-<table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse">
-<tr><td style="font-family:Georgia,'Times New Roman',serif;font-size:30px;line-height:34px;color:#07111F;padding:0 0 2px 0">${v("nome")}</td></tr>
-<tr><td style="font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:17px;line-height:22px;color:#1F4FA8;padding:0 0 12px 0">${v("cargo")}</td></tr>
-${line("e-mail",`<a href="mailto:${v("email")}" style="color:#3A4656;text-decoration:none">${v("email")}</a>`)}
-${line("celular",v("cel"))}
-${line("telefone",v("tel"))}
-</table></td></tr>
-<tr><td style="padding:18px 0 0 0">
-<table cellpadding="0" cellspacing="0" border="0" width="600" style="width:600px;border-collapse:collapse"><tr>
-<td bgcolor="#DCCFBC" background="${U("assets/logos/assinatura-faixa.png")}" style="background:#DCCFBC url('${U("assets/logos/assinatura-faixa.png")}') no-repeat center/cover;padding:18px 32px">
-<table cellpadding="0" cellspacing="0" border="0" width="100%" style="border-collapse:collapse"><tr>
-<td valign="middle" width="150"><img src="${U("assets/logos/stap-feelings-horizontal-navy.png")}" width="130" alt="Stap Feelings" style="display:block;width:130px;height:auto;border:0"></td>
-<td valign="middle" style="padding-left:16px;white-space:nowrap">${icons}</td>
-<td valign="middle" align="right" style="font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:19px;color:#07111F;white-space:nowrap">Sentimentos se constroem.</td>
-</tr></table></td></tr></table></td></tr>
-<tr><td style="padding:12px 0 0 32px;font-family:Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:.5px;color:#8A94A2">Rua Prestes João, 140 · Jardim Luzitânia · São Paulo/SP · CEP 04032-010</td></tr>
-</table>`;}
+  const m=$("email").value.trim(), tel=v("cel").replace(/[^+\d]/g,"");
+  const quem=nomePng?`<img src="${nomePng}" width="${nomeW}" alt="${v("nome")} · ${v("cargo")}" style="display:block;border:0;max-width:100%;height:auto">`
+   :`<div style="font-family:Newsreader,Georgia,serif;font-size:30px;line-height:34px;color:#07111F">${v("nome")}<span style="color:#1F4FA8">.</span></div><div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:20px;letter-spacing:2.6px;color:#1F4FA8;padding-top:6px">${v("cargo").toUpperCase()}</div>`;
+  const a=`color:#3A4656;text-decoration:none`;
+  return `<div style="max-width:600px;font-family:Arial,Helvetica,sans-serif;font-size:13.5px;line-height:20px;color:#3A4656">
+<div style="display:inline-block;vertical-align:middle;margin:0 24px 12px 0">${quem}</div><div style="display:inline-block;vertical-align:middle;margin:0 24px 12px 0;white-space:nowrap"><a href="tel:${tel}" style="${a}">${v("cel")}</a><br><a href="mailto:${esc(m)}" style="${a}">${esc(m)}</a><br><a href="https://stap.com.br" style="${a}">stap.com.br</a></div><div style="display:inline-block;vertical-align:middle;margin:0 0 12px 0"><a href="https://stap.com.br"><img src="${U("assets/assinatura/logo-stap.png")}" height="40" alt="Stap feelings" style="display:block;border:0;height:40px;width:auto"></a></div></div>`;}
+function achaNome(){const i=new Image(),u=U("assets/assinatura/"+slug($("nome").value)+".png");
+  const c=$("nome").value+$("cargo").value;
+  i.onload=()=>{nomeW=Math.round(i.naturalWidth/2);nomePng=(c==="Kco OyakawaHead of Art"||slug($("nome").value)!=="kco")?u:null;render()};i.onerror=()=>{nomePng=null;render()};i.src=u}
 function render(){$("out").innerHTML=sig()}
-$("f").addEventListener("input",render);render();
+$("f").addEventListener("input",achaNome);render();achaNome();
 const say=t=>{$("msg").textContent=t};
 $("copy").onclick=async()=>{const html=sig();
   try{await navigator.clipboard.write([new ClipboardItem({"text/html":new Blob([html],{type:"text/html"}),"text/plain":new Blob([$("out").innerText],{type:"text/plain"})})]);say("Assinatura copiada. Cole nas configurações do seu e-mail.")}
