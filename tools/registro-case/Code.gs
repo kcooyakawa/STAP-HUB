@@ -66,3 +66,14 @@ function upload(b) {
   if (!url) throw new Error('O Drive recusou o envio ('+res.getResponseCode()+').');
   return {url};
 }
+
+/* Rode uma vez: cria pasta e planilha e define o código de acesso (veja no registro de execução). */
+function setup() {
+  const code = 'stap-' + Utilities.getUuid().slice(0,6);
+  P.setProperties({
+    ACCESS_CODE: code,
+    ROOT_FOLDER_ID: DriveApp.createFolder('Registro de cases').getId(),
+    SHEET_ID: SpreadsheetApp.create('Registro de cases').getId()
+  });
+  Logger.log('Código de acesso: ' + code);
+}
