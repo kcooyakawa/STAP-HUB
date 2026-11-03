@@ -22,14 +22,14 @@
 .gate{max-width:520px}.gate .btn{margin-top:24px}.gate .or{margin:36px 0 0;padding-top:20px;border-top:1px solid var(--hair)}
 .pill{font-size:12px;color:var(--muted);margin-top:14px}
 @media(max-width:860px){.lay{grid-template-columns:1fr;gap:28px}.steps{position:static;display:flex;overflow-x:auto;gap:18px}.steps li{flex:none}.steps button{grid-template-columns:auto;gap:0;padding:8px 0;border-bottom-width:2px}.steps small{display:none}.g{grid-template-columns:1fr}}
+.tick{grid-column:1/-1;display:flex;gap:12px;align-items:center;padding:16px 0;border-bottom:1px solid var(--hair);cursor:pointer}.tick input{appearance:none;width:20px;height:20px;border:1px solid var(--navy);margin:0;flex:none;cursor:pointer}.tick input:checked{background:var(--blue);box-shadow:inset 0 0 0 3px var(--bg)}
+.city{position:relative}.sug{position:absolute;z-index:5;top:100%;left:0;right:0;margin:0;padding:0;list-style:none;background:var(--paper);border:1px solid var(--navy);max-height:280px;overflow:auto}.sug button{width:100%;text-align:left;border:0;background:none;padding:10px 12px;font:15px var(--sans);cursor:pointer;color:var(--navy)}.sug button:hover{background:var(--bg)}
+.pane .hint:empty{display:none}.pane h2{margin-bottom:24px}
 </style></head>
 <body>
-<header class="bar"><div class="in wrap">
-  <a class="brand" href="index.html"><img src="assets/logos/stap-feelings-horizontal-navy.png" alt="Stap Feelings"><span>Hub</span></a>
-  <nav><a href="templates.html"><sup>01</sup>Template</a><a href="fontes.html"><sup>02</sup>Fontes</a><a href="logos.html"><sup>03</sup>Logos</a><a href="fichas.html"><sup>04</sup>Fichas</a><a href="papelaria.html"><sup>05</sup>Papelaria</a><a href="assinatura.html"><sup>06</sup>Assinatura</a><a href="teams.html"><sup>07</sup>BG Teams</a><a href="documentos.html"><sup>08</sup>Documentos</a><a href="apresentacoes.html"><sup>09</sup>Apresentações</a><a href="registro.html" aria-current="page"><sup>10</sup>Registro</a></nav>
-</div></header>
+<header class="bar"><div class="in wrap"><img src="assets/logos/stap-feelings-horizontal-navy.png" alt="Stap Feelings" style="height:20px;width:auto"></div></header>
 <div class="demo" id="demo" hidden>Modo de teste: formulário ainda não conectado ao Drive. Nada do que você preencher será salvo.</div>
-<section class="phead wrap"><div class="k lbl"><i>10</i><span>Registro de case</span></div><h1>Do briefing <em>ao case.</em></h1><p class="lead">Cada área responde a sua parte, no momento certo do job. Dados, números, fotos e vídeos ficam juntos para virar case no site, no deck e nas redes.</p></section>
+<section class="phead wrap"><div class="k lbl"><span>Registro de case · 5 a 10 minutos</span></div><h1>Todo projeto <em>vira história.</em></h1><p class="lead">O que o cliente precisava, o que a Stap criou, como entregamos e o que alcançamos. Vira histórico de projetos, argumento comercial e conteúdo.</p></section>
 <section class="section wrap"><div id="app"></div><div id="msg" aria-live="polite"></div></section>
 <footer class="foot wrap"><b>stapfeelings</b><span>Uso interno · 2026</span></footer>
 <script src="assets/js/registro.js"></script>
