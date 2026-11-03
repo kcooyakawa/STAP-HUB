@@ -41,7 +41,7 @@ function sig(){
   const quem=nomePng?`<img src="${nomePng}" width="${nomeW}" alt="${v("nome")} · ${v("cargo")}" style="display:block;border:0;max-width:100%;height:auto">`
    :`<div style="font-family:Newsreader,Georgia,serif;font-size:30px;line-height:34px;color:#07111F">${v("nome")}<span style="color:#1F4FA8">.</span></div><div style="font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:20px;letter-spacing:2.6px;color:#1F4FA8;padding-top:6px">${v("cargo").toUpperCase()}</div>`;
   const a=`color:#3A4656;text-decoration:none`;
-  return `<div style="max-width:600px;font-family:Arial,Helvetica,sans-serif;font-size:13.5px;line-height:20px;color:#3A4656">
+  return `<div style="height:40px;line-height:40px;font-size:1px;mso-line-height-rule:exactly">&nbsp;</div><div style="max-width:600px;font-family:Arial,Helvetica,sans-serif;font-size:13.5px;line-height:20px;color:#3A4656">
 <div style="display:inline-block;vertical-align:middle;margin:0 24px 12px 0">${quem}</div><div style="display:inline-block;vertical-align:middle;margin:0 24px 12px 0;white-space:nowrap"><a href="tel:${tel}" style="${a}">${v("cel")}</a><br><a href="mailto:${esc(m)}" style="${a}">${esc(m)}</a><br><a href="https://stap.com.br" style="${a}">stap.com.br</a></div><div style="display:inline-block;vertical-align:middle;margin:0 0 12px 0"><a href="https://stap.com.br"><img src="${U("assets/assinatura/logo-stap.png")}" height="40" alt="Stap feelings" style="display:block;border:0;height:40px;width:auto"></a></div></div>`;}
 function achaNome(){const i=new Image(),u=U("assets/assinatura/"+slug($("nome").value)+".png");
   const c=$("nome").value+$("cargo").value;
