@@ -30,11 +30,10 @@
 @media(max-width:600px){.rr{grid-template-columns:1fr;gap:0}}@media print{.bar,.demo,.phead,.foot,.acts,.rh button{display:none}}
 
 body{background:#fff}
-.cover{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;gap:48px;padding-block:32px;color:#fff;background:url(assets/img/grunner-real.jpg) center/cover;overflow:hidden}
-.film{position:absolute;inset:0;background:linear-gradient(105deg,rgba(7,17,31,.94) 0%,rgba(19,48,106,.78) 48%,rgba(31,79,168,.3) 100%)}
-.cover>*:not(.film){position:relative}.top{display:flex;justify-content:space-between;gap:16px}
-.cover h1{font:400 clamp(68px,13.2vw,230px)/.86 var(--serif);letter-spacing:-.035em;margin:auto 0}.cover h1 em{color:var(--light)}
-.chain{list-style:none;margin:0;padding:18px 0 0;border-top:1px solid rgba(255,255,255,.55);display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.chain li{font:400 clamp(30px,5.4vw,92px)/1 var(--impact);text-transform:uppercase}.chain i{display:block;font:italic 18px var(--serif);text-transform:none;color:var(--light);margin-bottom:6px}
+.cover{min-height:100svh;display:flex;flex-direction:column;justify-content:space-between;gap:48px;padding-block:32px;color:var(--navy);background:linear-gradient(165deg,#fff 0%,#F4F1EB 38%,#D3E2F2 72%,#8CBBE8 100%)}
+.top{display:flex;justify-content:space-between;gap:16px}
+.cover h1{font:400 clamp(68px,13.2vw,230px)/.86 var(--serif);letter-spacing:-.035em;margin:auto 0}.cover h1 em{color:var(--blue)}
+.chain{list-style:none;margin:0;padding:18px 0 0;border-top:1px solid var(--navy);display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.chain li{font:400 clamp(26px,3.2vw,52px)/1 var(--serif);letter-spacing:-.01em}.chain i{display:block;font:italic 18px var(--serif);text-transform:none;color:var(--blue);margin-bottom:6px}
 .form{padding-block:clamp(56px,8vw,112px)}#app{max-width:1280px;margin:auto}#msg{max-width:1280px;margin:12px auto 0}
 .pane h2{font:400 clamp(48px,6.4vw,104px)/.95 var(--serif);letter-spacing:-.03em}.pane h2 em{color:var(--blue)}.pane>.who{font-size:11px}
 .steps button{font:400 26px/1 var(--impact);text-transform:uppercase;color:#9aa5b1;padding:14px 0}.steps i{font:italic 17px var(--serif);text-transform:none}.steps .on{color:var(--blue);border-color:var(--blue)}
@@ -42,13 +41,12 @@ body{background:#fff}
 .ops span{padding:12px 20px;font-size:14px}.ops input:checked+span{background:var(--blue);border-color:var(--blue);color:#fff}
 .btn:not(.ghost){background:var(--blue);color:#fff}.btn:not(.ghost):hover{background:var(--navy)}.zone{background:linear-gradient(135deg,#fff,#E5F0FA);border-color:var(--blue);padding:36px}.zone:hover,.zone.over{background:#D3E2F2}
 .tick input:checked{box-shadow:inset 0 0 0 3px #fff}.gate{max-width:640px}.sug{background:#fff}
-@media(max-width:620px){.chain{grid-template-columns:1fr 1fr}.cover{background-position:60% center}}
+@media(max-width:620px){.chain{grid-template-columns:1fr 1fr}}
 @media print{.cover{display:none}}
 </style></head>
 <body>
 <div class="demo" id="demo" hidden>Modo de teste: formulário ainda não conectado ao Drive. Nada do que você preencher será salvo.</div>
-<section class="cover wrap"><div class="film"></div>
-<div class="top lbl"><span>Registro de case</span><span>5 a 10 minutos</span></div>
+<section class="cover wrap"><div class="top lbl"><span>Registro de case</span><span>5 a 10 minutos</span></div>
 <h1>Todo projeto<br><em>vira história.</em></h1>
 <ol class="chain"><li><i>01</i>Precisava</li><li><i>02</i>Criou</li><li><i>03</i>Entregamos</li><li><i>04</i>Alcançamos</li></ol></section>
 <section class="form wrap"><div id="app"></div><div id="msg" aria-live="polite"></div></section>
