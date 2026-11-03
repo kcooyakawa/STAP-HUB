@@ -32,15 +32,14 @@ async function api(action,body={}){
  const r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,code:CODE,...body})});
  const j=await r.json();if(!j.ok)throw new Error(j.error||'Erro ao falar com o Drive.');return j}
 const slug=()=>[D.cliente,D.evento,new Date().getFullYear()].join('-').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-zA-Z0-9]+/g,'-').toLowerCase().replace(/^-|-$/g,'')+'-'+Math.random().toString(36).slice(2,6);
-function gate(){const p=new URLSearchParams(location.search).get('job')||'';if(p)return codeScreen(p);
- $('#app').innerHTML=`<div class="gate pane"><h2>Comece por aqui.</h2><p class="hint">Leva de 5 a 10 minutos. Deixe em branco o que não souber.</p><div class="acts"><button class="btn" id="new">Novo job</button><button class="btn ghost" id="open">Continuar um job</button></div></div>`;
- $('#new').onclick=()=>codeScreen('',true);$('#open').onclick=()=>codeScreen('',false)}
-function codeScreen(job,novo){msg('');
- $('#app').innerHTML=`<div class="gate pane code"><h2>Informe o código de acesso.</h2><p class="hint">Cada código libera um único job.</p><label class="big"><span class="lbl">Código</span><input id="code" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="job-000000"></label>
- ${novo?'':`<label class="f"><span>Código do job</span><input id="jid" value="${esc(job)}"></label>`}<div class="acts"><button class="btn" id="go">Continuar</button><button class="btn ghost" id="bk">Voltar</button></div></div>`;
- $('#code').focus();$('#code').onkeydown=e=>{if(e.key==='Enter')$('#go').click()};$('#bk').onclick=()=>{msg('');history.replaceState(0,'',location.pathname);gate()};
- $('#go').onclick=async()=>{CODE=$('#code').value.trim();if(!DEMO&&!CODE)return msg('Informe o código de acesso.');msg('Verificando...');
-  try{if(novo){await api('ping',{novo:true});D={};ID=''}else{const id=$('#jid').value.trim();if(!id)return msg('Cole o código do job.');const j=await api('get',{id});D=j.data;ID=id}S=0;msg('');render()}catch(e){msg(e.message)}}}
+function gate(){const p=new URLSearchParams(location.search).get('job')||'';msg('');
+ $('#app').innerHTML=`<div class="open"><h1>Registro de cases</h1><p class="st1">Comece por aqui.</p><p>Leva de 5 a 10 minutos.</p>
+ <label class="big"><span class="lbl">Código de acesso</span><input id="code" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="job-000000"></label>
+ <label class="f" id="jw" ${p?'':'hidden'}><span>Código do job</span><input id="jid" value="${esc(p)}"></label>
+ <div class="acts"><button class="btn" id="new">Novo job</button><button class="btn ghost" id="open">Abrir job</button></div></div>`;
+ const c=()=>{CODE=$('#code').value.trim();if(!DEMO&&!CODE){msg('Informe o código de acesso.');return false}return true};
+ $('#new').onclick=async()=>{if(!c())return;msg('Verificando...');try{await api('ping',{novo:true});D={};ID='';S=0;msg('');render()}catch(e){msg(e.message)}};
+ $('#open').onclick=async()=>{const w=$('#jw');if(w.hidden){w.hidden=false;return $('#jid').focus()}if(!c())return;const id=$('#jid').value.trim();if(!id)return msg('Cole o código do job.');msg('Abrindo...');try{const j=await api('get',{id});D=j.data;ID=id;S=0;msg('');render()}catch(e){msg(e.message)}}}
 const field=x=>{const v=esc(D[x.k]);const c='f'+(x.w?' w':'');
  if(x.ck)return`<label class="tick w"><input type="checkbox" name="${x.k}" ${D[x.k]==='Sim'?'checked':''}><span>${esc(x.l)}</span></label>`;
  if(x.ops)return`<fieldset class="${c}" style="margin:0;border-width:0 0 1px;padding-inline:0"><legend style="font-size:13px;padding:0">${esc(x.l)}</legend><div class="ops">${x.ops.map(o=>`<label><input type="radio" name="${x.k}" value="${esc(o)}" ${D[x.k]===o?'checked':''}><span>${esc(o)}</span></label>`).join('')}</div></fieldset>`;
