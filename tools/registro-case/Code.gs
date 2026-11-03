@@ -12,7 +12,7 @@ function doPost(e) {
       const lock = LockService.getScriptLock(); lock.waitLock(20000);
       try { const err = checkCode(b); if (err) return out({ok:false, error:err}); } finally { lock.releaseLock(); }
     }
-    const fn = {ping:()=>({}), save, get, files, upload}[b.action];
+    const fn = {ping:()=>({}), save, get, files, upload, done}[b.action];
     if (!fn) return out({ok:false, error:'Ação desconhecida.'});
     const res = fn(b);
     if (!master && b.action==='save' && !b.id) bindCode(b.code, res.id);
@@ -100,3 +100,12 @@ function gerarCodigos() {
   for (let i=0;i<10;i++) { const k='job-'+Utilities.getUuid().slice(0,6); c[k]=''; Logger.log(k); }
   P.setProperty('CODES',JSON.stringify(c));
 }
+
+/* Avisa o dono da conta quando alguém conclui um job. */
+function done(b) {
+  const {s,r}=jobRow(b.id), url=DriveApp.getFolderById(s.getRange(r,3).getValue()).getUrl();
+  const t=String(b.titulo||b.id).replace(/[\r\n]+/g,' ').slice(0,120);
+  MailApp.sendEmail(Session.getEffectiveUser().getEmail(),'Registro de cases: '+t,String(b.resumo||'').slice(0,20000)+'\n\nJob: '+b.id+'\nArquivos: '+url+'\nPlanilha: '+SpreadsheetApp.openById(P.getProperty('SHEET_ID')).getUrl());
+  return {};
+}
+function autorizarEmail() { Logger.log(MailApp.getRemainingDailyQuota()); }
