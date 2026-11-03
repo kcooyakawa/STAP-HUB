@@ -1,5 +1,5 @@
 /* Registro de case · cole em API_URL a URL do App Script (veja tools/registro-case/README.md) */
-const API_URL='';
+const API_URL='https://script.google.com/macros/s/AKfycbwQh49CJvqmwOpFCI5JFpZrTg_GYZlNrQi7gg1IiuEleDHsyfiP3wg0xsYiCpVeZCVT/exec';
 const DEMO=!API_URL;
 const $=(s,r=document)=>r.querySelector(s),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const T=(k,l,o={})=>({k,l,...o}),N=(k,l,o={})=>T(k,l,{num:1,...o}),TA=(k,l,h)=>T(k,l,{ta:1,w:1,h}),O=(k,l,ops,o={})=>T(k,l,{ops,w:1,...o}),CK=(k,l)=>T(k,l,{ck:1,w:1});
