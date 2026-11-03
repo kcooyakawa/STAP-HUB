@@ -32,15 +32,15 @@ async function api(action,body={}){
  const r=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,code:CODE,...body})});
  const j=await r.json();if(!j.ok)throw new Error(j.error||'Erro ao falar com o Drive.');return j}
 const slug=()=>[D.cliente,D.evento,new Date().getFullYear()].join('-').normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-zA-Z0-9]+/g,'-').toLowerCase().replace(/^-|-$/g,'')+'-'+Math.random().toString(36).slice(2,6);
-function gate(){const p=new URLSearchParams(location.search).get('job')||'';
- $('#app').innerHTML=`<div class="gate pane"><h2>Comece por aqui.</h2><p class="hint">Leva de 5 a 10 minutos. Deixe em branco o que não souber.</p>
- ${DEMO?'':`<label class="f"><span>Código de acesso</span><input id="code" type="password" autocomplete="off" value="${esc(store.get('stap-code')||'')}"></label>`}
- <div class="acts"><button class="btn" id="new">Novo job</button></div>
- <div class="or"><label class="f"><span>Continuar um job</span><small>Cole o código recebido.</small><input id="jid" value="${esc(p)}"></label><div class="acts"><button class="btn ghost" id="open">Abrir job</button></div></div></div>`;
- const c=()=>{CODE=$('#code')?.value.trim()||'';store.set('stap-code',CODE)};
- $('#new').onclick=async()=>{c();if(!DEMO&&!CODE)return msg('Informe o código de acesso.');try{await api('ping');D={};ID='';S=0;render()}catch(e){msg(e.message)}};
- $('#open').onclick=async()=>{c();const id=$('#jid').value.trim();if(!id)return msg('Cole o código do job.');msg('Abrindo...');try{const j=await api('get',{id});D=j.data;ID=id;S=0;msg('');render()}catch(e){msg(e.message)}};
- if(p&&(DEMO||CODE))$('#open').click()}
+function gate(){const p=new URLSearchParams(location.search).get('job')||'';if(p)return codeScreen(p);
+ $('#app').innerHTML=`<div class="gate pane"><h2>Comece por aqui.</h2><p class="hint">Leva de 5 a 10 minutos. Deixe em branco o que não souber.</p><div class="acts"><button class="btn" id="new">Novo job</button><button class="btn ghost" id="open">Continuar um job</button></div></div>`;
+ $('#new').onclick=()=>codeScreen('',true);$('#open').onclick=()=>codeScreen('',false)}
+function codeScreen(job,novo){msg('');
+ $('#app').innerHTML=`<div class="gate pane code"><h2>Informe o código de acesso.</h2><p class="hint">Cada código libera um único job.</p><label class="big"><span class="lbl">Código</span><input id="code" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="job-000000"></label>
+ ${novo?'':`<label class="f"><span>Código do job</span><input id="jid" value="${esc(job)}"></label>`}<div class="acts"><button class="btn" id="go">Continuar</button><button class="btn ghost" id="bk">Voltar</button></div></div>`;
+ $('#code').focus();$('#code').onkeydown=e=>{if(e.key==='Enter')$('#go').click()};$('#bk').onclick=()=>{msg('');history.replaceState(0,'',location.pathname);gate()};
+ $('#go').onclick=async()=>{CODE=$('#code').value.trim();if(!DEMO&&!CODE)return msg('Informe o código de acesso.');msg('Verificando...');
+  try{if(novo){await api('ping',{novo:true});D={};ID=''}else{const id=$('#jid').value.trim();if(!id)return msg('Cole o código do job.');const j=await api('get',{id});D=j.data;ID=id}S=0;msg('');render()}catch(e){msg(e.message)}}}
 const field=x=>{const v=esc(D[x.k]);const c='f'+(x.w?' w':'');
  if(x.ck)return`<label class="tick w"><input type="checkbox" name="${x.k}" ${D[x.k]==='Sim'?'checked':''}><span>${esc(x.l)}</span></label>`;
  if(x.ops)return`<fieldset class="${c}" style="margin:0;border-width:0 0 1px;padding-inline:0"><legend style="font-size:13px;padding:0">${esc(x.l)}</legend><div class="ops">${x.ops.map(o=>`<label><input type="radio" name="${x.k}" value="${esc(o)}" ${D[x.k]===o?'checked':''}><span>${esc(o)}</span></label>`).join('')}</div></fieldset>`;
@@ -75,7 +75,7 @@ async function resumo(){let fl={};try{fl=(await api('files',{id:ID})).files||{}}
   const a=s.files?FILES().map(([k,t])=>`<div class="rr"><span>${esc(t)}</span><b>${(fl[k]||[]).length} arquivo(s)</b></div>`).join(''):'';
   return`<section class="rs"><div class="rh"><h3>${esc(s.t)}</h3><button data-i="${i}">Editar</button></div>${r+a||'<p class="hint">Sem respostas.</p>'}</section>`}).join('');
  $('#app').innerHTML=`<div class="pane"><div class="who lbl">${DEMO?'Teste concluído':'Registro concluído'}</div><h2>Tudo certo, <em style="color:var(--blue)">obrigado.</em></h2><p class="hint">${DEMO?'Modo de teste: nada foi salvo.':'Suas respostas foram salvas.'} Confira o resumo. Job: ${esc(ID)}</p>${sec}<div class="acts"><button class="btn" id="pr">Imprimir ou salvar em PDF</button><button class="btn ghost" id="nw">Novo job</button></div></div>`;
- document.querySelectorAll('.rs button').forEach(b=>b.onclick=()=>{S=+b.dataset.i;render()});$('#pr').onclick=()=>print();$('#nw').onclick=()=>{D={};ID='';S=0;render()};msg('');scrollTo({top:$('#app').offsetTop-24})}
+ document.querySelectorAll('.rs button').forEach(b=>b.onclick=()=>{S=+b.dataset.i;render()});$('#pr').onclick=()=>print();$('#nw').onclick=()=>{D={};ID='';S=0;CODE='';gate()};msg('');scrollTo({top:$('#app').offsetTop-24})}
 const size=b=>b>1e9?(b/1e9).toFixed(1)+' GB':(b/1e6).toFixed(1)+' MB';
 async function files(){const box=$('#fs');box.innerHTML=FILES().map(([k,t,h])=>`<div class="drop" data-k="${k}"><h3>${t}</h3><p>${h}</p><label class="zone"><input type="file" multiple>Arraste aqui ou clique para escolher</label><ul class="fl"></ul></div>`).join('');
  box.querySelectorAll('.drop').forEach(d=>{const z=$('.zone',d),inp=$('input',d),k=d.dataset.k;inp.onchange=()=>{[...inp.files].forEach(f=>up(f,k,d));inp.value=''};
@@ -89,5 +89,5 @@ async function up(f,k,d){const li=document.createElement('li');li.innerHTML=`<sp
   await new Promise((ok,no)=>{const x=new XMLHttpRequest();x.open('PUT',j.url);x.upload.onprogress=e=>{const p=e.loaded/e.total*100;bar.style.width=p+'%';st.textContent=Math.round(p)+'%'};x.onload=()=>x.status<300?ok():no();x.onerror=no;x.send(f)});end('Enviado')}
  catch(e){try{const j=await api('files',{id:ID});if((j.files[k]||[]).includes(f.name))return end('Enviado')}catch(_){}
   fail()}}
-if(DEMO)$('#demo').hidden=false;CODE=store.get('stap-code')||'';gate();
+if(DEMO)$('#demo').hidden=false;gate();
 window.addEventListener('beforeunload',e=>{if(DIRTY)e.preventDefault()});

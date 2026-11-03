@@ -7,10 +7,16 @@ const out = o => ContentService.createTextOutput(JSON.stringify(o)).setMimeType(
 function doPost(e) {
   try {
     const b = JSON.parse(e.postData.contents);
-    if (!b.code || b.code !== P.getProperty('ACCESS_CODE')) return out({ok:false, error:'Código de acesso inválido.'});
+    const master = b.code && b.code === P.getProperty('ACCESS_CODE');
+    if (!master) {
+      const lock = LockService.getScriptLock(); lock.waitLock(20000);
+      try { const err = checkCode(b); if (err) return out({ok:false, error:err}); } finally { lock.releaseLock(); }
+    }
     const fn = {ping:()=>({}), save, get, files, upload}[b.action];
     if (!fn) return out({ok:false, error:'Ação desconhecida.'});
-    return out(Object.assign({ok:true}, fn(b)));
+    const res = fn(b);
+    if (!master && b.action==='save' && !b.id) bindCode(b.code, res.id);
+    return out(Object.assign({ok:true}, res));
   } catch (err) { return out({ok:false, error:String(err.message || err)}); }
 }
 function sheet() {
@@ -76,4 +82,21 @@ function setup() {
     SHEET_ID: SpreadsheetApp.create('Registro de cases').getId()
   });
   Logger.log('Código de acesso: ' + code);
+}
+
+/* Cada código libera um único job: cria um e depois só abre esse. */
+function codes() { return JSON.parse(P.getProperty('CODES')||'{}'); }
+function checkCode(b) {
+  const c = codes(), inv = 'Código de acesso inválido.', used = 'Este código já foi usado em outro job.';
+  if (!b.code || !(b.code in c)) return inv;
+  const job = c[b.code], isNew = b.action==='ping' ? b.novo : (b.action==='save' && !b.id);
+  if (isNew) return job ? used : '';
+  return job && job===b.id ? '' : used;
+}
+function bindCode(code, id) { const c=codes(); c[code]=id; P.setProperty('CODES',JSON.stringify(c)); }
+/* Rode para gerar 10 códigos de uso único (veja no registro de execução). */
+function gerarCodigos() {
+  const c=codes();
+  for (let i=0;i<10;i++) { const k='job-'+Utilities.getUuid().slice(0,6); c[k]=''; Logger.log(k); }
+  P.setProperty('CODES',JSON.stringify(c));
 }
