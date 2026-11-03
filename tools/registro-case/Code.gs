@@ -101,11 +101,18 @@ function gerarCodigos() {
   P.setProperty('CODES',JSON.stringify(c));
 }
 
-/* Avisa o dono da conta quando alguém conclui um job. */
+/* Ao concluir: gera o PDF do job, salva na pasta e envia por e-mail ao dono da conta. */
 function done(b) {
-  const {s,r}=jobRow(b.id), url=DriveApp.getFolderById(s.getRange(r,3).getValue()).getUrl();
+  const {s,r}=jobRow(b.id), folder=DriveApp.getFolderById(s.getRange(r,3).getValue());
   const t=String(b.titulo||b.id).replace(/[\r\n]+/g,' ').slice(0,120);
-  MailApp.sendEmail(Session.getEffectiveUser().getEmail(),'Registro de cases: '+t,String(b.resumo||'').slice(0,20000)+'\n\nJob: '+b.id+'\nArquivos: '+url+'\nPlanilha: '+SpreadsheetApp.openById(P.getProperty('SHEET_ID')).getUrl());
+  const e=x=>String(x==null?'':x).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c])).replace(/\n/g,'<br>');
+  const sec=(b.blocos||[]).map((g,i)=>'<h2><span>0'+(i+1)+'</span> '+e(g.t)+'</h2>'+(g.rows.length?'<table>'+g.rows.map(x=>'<tr><td class="k">'+e(x[0])+'</td><td>'+e(x[1])+'</td></tr>').join('')+'</table>':'<p class="v">Sem respostas.</p>')).join('');
+  const html='<html><head><meta charset="utf-8"><style>@page{margin:18mm}body{font-family:Georgia,serif;color:#07111F;font-size:11pt}.l{font:8pt Arial,sans-serif;letter-spacing:2pt;color:#1F4FA8}h1{font-size:30pt;font-weight:normal;margin:8pt 0 4pt}.s{font:9pt Arial,sans-serif;color:#4A5868;border-bottom:1pt solid #07111F;padding-bottom:12pt}h2{font-size:15pt;font-weight:normal;margin:20pt 0 6pt}h2 span{font-style:italic;color:#1F4FA8}table{width:100%;border-collapse:collapse}td{padding:5pt 0;border-bottom:.5pt solid #D3CCC0;vertical-align:top;font:10pt Arial,sans-serif}td.k{width:38%;color:#4A5868}.v{font:10pt Arial,sans-serif;color:#4A5868}</style></head><body><div class="l">REGISTRO DE CASES</div><h1>'+e(t)+'</h1><div class="s">Job '+e(b.id)+' · '+Utilities.formatDate(new Date(),'America/Sao_Paulo','dd/MM/yyyy')+'</div>'+sec+'</body></html>';
+  const nome='Registro - '+t.replace(/[\\/:*?"<>|]/g,'-')+'.pdf';
+  const pdf=HtmlService.createHtmlOutput(html).getAs('application/pdf').setName(nome);
+  const old=folder.getFilesByName(nome); while(old.hasNext()) old.next().setTrashed(true);
+  folder.createFile(pdf);
+  MailApp.sendEmail(Session.getEffectiveUser().getEmail(),'Registro de cases: '+t,'Novo registro concluído. O PDF está em anexo.\n\nArquivos: '+folder.getUrl(),{attachments:[pdf]});
   return {};
 }
 function autorizarEmail() { Logger.log(MailApp.getRemainingDailyQuota()); }
